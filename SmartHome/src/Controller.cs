@@ -31,7 +31,7 @@ namespace SmartHome
                 foreach (var subscriber in subs.subscribers)
                 {
                     double desiredTemperature = 0;
-                    Session session = await mon.getSessionAsync(subscriber.homeId);
+                    Session session = await mon.getSession(subscriber.homeId);
 
                     showSubscriberAndSessionDetails(subscriber, session, ref desiredTemperature);
 

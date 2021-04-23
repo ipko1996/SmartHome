@@ -8,6 +8,6 @@ namespace SmartHome
 {
     interface IMonitor
     {
-        Task<Session> getSessionAsync(string homeId);
+        Task<Session> getSession(string homeId);
     }
 }

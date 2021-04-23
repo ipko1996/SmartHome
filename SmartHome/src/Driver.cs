@@ -20,6 +20,11 @@ namespace SmartHome
 
             var commands = createCommands(c.subscriber, c.boilderCommand, c.airConditionerCommand, boilerStop, boilerStart, acStop, acStart);
 
+            if (commands == null)
+            {
+                return 102;
+            }
+
             string responseString = await getResponseFromServerAsync(c.subscriber, commands);
 
             int resp = -1;
@@ -30,6 +35,11 @@ namespace SmartHome
 
         private Dictionary<string, string> createCommands(Subscriber sub, bool boiler, bool ac, string boilerStop, string boilerStart, string acStop, string acStart)
         {
+            if (sub.boilerType == "" || sub.airConditionerType == "")
+            {
+                return null;
+            }
+
             return new Dictionary<string, string>
             {
                 { "homeId", sub.homeId },
