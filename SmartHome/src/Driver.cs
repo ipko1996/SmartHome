@@ -65,6 +65,10 @@ namespace SmartHome
                     boilerStop = "dX111";
                     boilerStart = "dX3422";
                     break;
+                case "Boiler 1400L":
+                    boilerStop = "kx8417";
+                    boilerStart = "kx4823";
+                    break;
                 default: 
                     Console.WriteLine("No boiler command found for this type of boiler OR subscriber has no boiler!");
                     break;
