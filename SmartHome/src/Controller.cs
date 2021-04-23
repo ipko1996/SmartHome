@@ -132,7 +132,7 @@ namespace SmartHome
                     Console.WriteLine("No device found with this id!");
                     break;
                 case 103:
-                    Console.WriteLine("Old or deleted device!");
+                    Console.WriteLine("Home id not found!");
                     break;
                 default:
                     Console.WriteLine("Something went wrong!");
