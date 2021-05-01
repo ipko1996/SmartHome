@@ -7,7 +7,7 @@ namespace SmartHome
 {
     class Controller
     {
-        static async Task Main(string[] args)
+        static async Task Main()
         {
             try
             {

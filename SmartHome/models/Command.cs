@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SmartHome
 {
-    class Command
+    public class Command
     {
         public Command(Subscriber subscriber, bool boilderCommand, bool airConditionerCommand)
         {

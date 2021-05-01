@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SmartHome
 {
-    class Driver : IDriver
+    public class Driver : IDriver
     {
         private const string URL = "http://193.6.19.58:8182/smarthome/";
         public async Task<int> sendCommand(Command c)
@@ -25,7 +25,7 @@ namespace SmartHome
                 return 102;
             }
 
-            string responseString = await getResponseFromServerAsync(c.subscriber, commands);
+            string responseString = await getResponseFromServerAsync(c.subscriber.homeId, commands);
 
             int resp = -1;
             Int32.TryParse(responseString, out resp);
@@ -33,27 +33,27 @@ namespace SmartHome
             return resp;
         }
 
-        private Dictionary<string, string> createCommands(Subscriber sub, bool boiler, bool ac, string boilerStop, string boilerStart, string acStop, string acStart)
+        private string createCommands(Subscriber sub, bool boiler, bool ac, string boilerStop, string boilerStart, string acStop, string acStart)
         {
             if (sub.boilerType == "" || sub.airConditionerType == "")
             {
                 return null;
             }
-
-            return new Dictionary<string, string>
+            var temp =  new Dictionary<string, string>
             {
                 { "homeId", sub.homeId },
                 { "boilerCommand", boiler ? boilerStart : boilerStop },
                 { "airConditionerCommand", ac ? acStart : acStop}
             };
+            return JsonConvert.SerializeObject(temp);
         }
 
-        private async Task<string> getResponseFromServerAsync(Subscriber sub, Dictionary<string, string> values)
+        //must be public for the tests
+        public async Task<string> getResponseFromServerAsync(string homeId, string commands)
         {
             var client = new HttpClient();
-            string commands = JsonConvert.SerializeObject(values);
             var data = new StringContent(commands);
-            var response =await client.PostAsync(URL + sub.homeId, data);
+            var response =await client.PostAsync(URL + homeId, data);
             var responseContent = response.Content;
             string responseString = responseContent.ReadAsStringAsync().Result;
             return responseString;

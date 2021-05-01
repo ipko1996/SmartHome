@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace SmartHome
 {
-    class Monitor : IMonitor
+    public class Monitor : IMonitor
     {
         private const string URL = "http://193.6.19.58:8182/smarthome/";
         public async Task<Session> getSession(string homeId)
